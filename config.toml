@@ -1,0 +1,8 @@
+baseURL = 'https://cmart-seq.github.io/goodbees.github.io'
+languageCode = 'en-us'
+title = 'will you raise good bees'
+theme = "paper"
+publishDir = "docs"
+
+[markup.goldmark.renderer]
+unsafe = true
