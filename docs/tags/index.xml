@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on will you raise good bees</title>
     <link>https://cmart-seq.github.io/goodbees.github.io/tags/</link>
@@ -7,5 +7,77 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 29 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://cmart-seq.github.io/goodbees.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>clustering</title>
+      <link>https://cmart-seq.github.io/goodbees.github.io/tags/clustering/</link>
+      <pubDate>Fri, 29 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmart-seq.github.io/goodbees.github.io/tags/clustering/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>interactive</title>
+      <link>https://cmart-seq.github.io/goodbees.github.io/tags/interactive/</link>
+      <pubDate>Fri, 29 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmart-seq.github.io/goodbees.github.io/tags/interactive/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>resources</title>
+      <link>https://cmart-seq.github.io/goodbees.github.io/tags/resources/</link>
+      <pubDate>Fri, 29 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmart-seq.github.io/goodbees.github.io/tags/resources/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>single-cell analysis</title>
+      <link>https://cmart-seq.github.io/goodbees.github.io/tags/single-cell-analysis/</link>
+      <pubDate>Fri, 29 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmart-seq.github.io/goodbees.github.io/tags/single-cell-analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>10x</title>
+      <link>https://cmart-seq.github.io/goodbees.github.io/tags/10x/</link>
+      <pubDate>Mon, 25 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmart-seq.github.io/goodbees.github.io/tags/10x/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>alignment</title>
+      <link>https://cmart-seq.github.io/goodbees.github.io/tags/alignment/</link>
+      <pubDate>Mon, 25 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmart-seq.github.io/goodbees.github.io/tags/alignment/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cellranger</title>
+      <link>https://cmart-seq.github.io/goodbees.github.io/tags/cellranger/</link>
+      <pubDate>Mon, 25 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmart-seq.github.io/goodbees.github.io/tags/cellranger/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tak</title>
+      <link>https://cmart-seq.github.io/goodbees.github.io/tags/tak/</link>
+      <pubDate>Mon, 25 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmart-seq.github.io/goodbees.github.io/tags/tak/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

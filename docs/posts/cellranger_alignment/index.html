@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>CellRanger Alignment Example | will you raise good bees</title>
+<meta name="keywords" content="tak, 10x, alignment, cellranger">
+<meta name="description" content="Here, we align the NovaSeq outputs for 30k single nuclei profiles from DAP5 seeds using CellRanger. One 10x reaction can process 10k nuclei max, so the profiles are split across 3 reactions (DAP5A, DAP5B, DAP5C). CellRanger processes each reaction separately.
+Organization and raw data naming: We begin in the command line with the data copied from GTC storage to your solexa_gehring location, following this file structure:
+./cellranger/ |-raw_data/ |-220630_DAP5A_S1_L001_R1_001.fastq.gz |-220630_DAP5A_S1_L001_R2_001.fastq.gz |-220630_DAP5A_S1_L002_R1_001.">
+<meta name="author" content="Carly Martin">
+<link rel="canonical" href="https://cmart-seq.github.io/goodbees.github.io/posts/cellranger_alignment/">
+<link crossorigin="anonymous" href="/goodbees.github.io/assets/css/stylesheet.bc1149f4a72aa4858d3a9f71462f75e5884ffe8073ea9d6d5761d5663d651e20.css" integrity="sha256-vBFJ9KcqpIWNOp9xRi915YhP/oBz6p1tV2HVZj1lHiA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/goodbees.github.io/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://cmart-seq.github.io/goodbees.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://cmart-seq.github.io/goodbees.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://cmart-seq.github.io/goodbees.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://cmart-seq.github.io/goodbees.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://cmart-seq.github.io/goodbees.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="CellRanger Alignment Example" />
+<meta property="og:description" content="Here, we align the NovaSeq outputs for 30k single nuclei profiles from DAP5 seeds using CellRanger. One 10x reaction can process 10k nuclei max, so the profiles are split across 3 reactions (DAP5A, DAP5B, DAP5C). CellRanger processes each reaction separately.
+Organization and raw data naming: We begin in the command line with the data copied from GTC storage to your solexa_gehring location, following this file structure:
+./cellranger/ |-raw_data/ |-220630_DAP5A_S1_L001_R1_001.fastq.gz |-220630_DAP5A_S1_L001_R2_001.fastq.gz |-220630_DAP5A_S1_L002_R1_001." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cmart-seq.github.io/goodbees.github.io/posts/cellranger_alignment/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-07-25T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2022-07-25T00:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CellRanger Alignment Example"/>
+<meta name="twitter:description" content="Here, we align the NovaSeq outputs for 30k single nuclei profiles from DAP5 seeds using CellRanger. One 10x reaction can process 10k nuclei max, so the profiles are split across 3 reactions (DAP5A, DAP5B, DAP5C). CellRanger processes each reaction separately.
+Organization and raw data naming: We begin in the command line with the data copied from GTC storage to your solexa_gehring location, following this file structure:
+./cellranger/ |-raw_data/ |-220630_DAP5A_S1_L001_R1_001.fastq.gz |-220630_DAP5A_S1_L001_R2_001.fastq.gz |-220630_DAP5A_S1_L002_R1_001."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://cmart-seq.github.io/goodbees.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "CellRanger Alignment Example",
+      "item": "https://cmart-seq.github.io/goodbees.github.io/posts/cellranger_alignment/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CellRanger Alignment Example",
+  "name": "CellRanger Alignment Example",
+  "description": "Here, we align the NovaSeq outputs for 30k single nuclei profiles from DAP5 seeds using CellRanger. One 10x reaction can process 10k nuclei max, so the profiles are split across 3 reactions (DAP5A, DAP5B, DAP5C). CellRanger processes each reaction separately.\nOrganization and raw data naming: We begin in the command line with the data copied from GTC storage to your solexa_gehring location, following this file structure:\n./cellranger/ |-raw_data/ |-220630_DAP5A_S1_L001_R1_001.fastq.gz |-220630_DAP5A_S1_L001_R2_001.fastq.gz |-220630_DAP5A_S1_L002_R1_001.",
+  "keywords": [
+    "tak", "10x", "alignment", "cellranger"
+  ],
+  "articleBody": "Here, we align the NovaSeq outputs for 30k single nuclei profiles from DAP5 seeds using CellRanger. One 10x reaction can process 10k nuclei max, so the profiles are split across 3 reactions (DAP5A, DAP5B, DAP5C). CellRanger processes each reaction separately.\nOrganization and raw data naming: We begin in the command line with the data copied from GTC storage to your solexa_gehring location, following this file structure:\n./cellranger/ |-raw_data/ |-220630_DAP5A_S1_L001_R1_001.fastq.gz |-220630_DAP5A_S1_L001_R2_001.fastq.gz |-220630_DAP5A_S1_L002_R1_001.fastq.gz |-220630_DAP5A_S1_L002_R2_001.fastq.gz |-220630_DAP5B_S2_L001_R1_001.fastq.gz |-220630_DAP5B_S2_L001_R2_001.fastq.gz |-220630_DAP5B_S2_L002_R1_001.fastq.gz |-220630_DAP5B_S2_L002_R2_001.fastq.gz |-220630_DAP5C_S3_L001_R1_001.fastq.gz |-220630_DAP5C_S3_L001_R2_001.fastq.gz |-220630_DAP5C_S3_L002_R1_001.fastq.gz |-220630_DAP5C_S3_L002_R2_001.fastq.gz |-DAP5A/ |-DAP5B/ |-DAP5C/ |-Arabidopsis_thaliana.TAIR10.43.gtf |-BSgenome.Athaliana.TAIR.TAIR9.fasta Note that the raw data file names are not the names generated by illumina/GTC. CellRanger requires this naming convention:\n[SAMPLE NAME]_S[X]_L00[LANE NUMBER]_[READ TYPE]_001.fastq.gz Link with more info: https://kb.10xgenomics.com/hc/en-us/articles/115003802691-How-do-I-prepare-Sequence-Read-Archive-SRA-data-from-NCBI-for-Cell-Ranger-\nExample of naming change, while copying to your raw_data folder in bash:\n#cd to your raw_data folder cp /GTC/path/to/FASTQ/L224_1246_S1_L001_R1_001.fastq.gz ./220630_DAP5A_S1_L001_R1_001.fastq.gz Preparing a custom reference for A. thaliana: CellRanger requires a specialized directory structure for the reference genome and annotation. To construct a custom reference, prepare your .gtf file with cellranger mkgtf. Then, generate the reference file structure with cellranger mkref.\nIn tak, call the v6 version of cellranger with cellranger6. The default version of cellranger (version 4) on tak cannot handle custom reference generation with plant genomes.\nIn bash, filter:\ncellranger6 mkgtf Arabidopsis_thaliana.TAIR10.43.gtf Arabidopsis_thaliana.TAIR10.43.filtered.gtf In bash, make the reference:\ncellranger6 mkref --genome=TAIR9 --fasta=BSgenome.Athaliana.TAIR.TAIR9.fasta --genes=Arabidopsis_thaliana.TAIR10.43.filtered.gtf Now, there is a new folder in your analysis directory containing the custom reference compatible with CellRanger:\n./cellranger/ |-raw_data/ |-220630_DAP5A_S1_L001_R1_001.fastq.gz |-220630_DAP5A_S1_L001_R2_001.fastq.gz |-220630_DAP5A_S1_L002_R1_001.fastq.gz |-220630_DAP5A_S1_L002_R2_001.fastq.gz |-220630_DAP5B_S2_L001_R1_001.fastq.gz |-220630_DAP5B_S2_L001_R2_001.fastq.gz |-220630_DAP5B_S2_L002_R1_001.fastq.gz |-220630_DAP5B_S2_L002_R2_001.fastq.gz |-220630_DAP5C_S3_L001_R1_001.fastq.gz |-220630_DAP5C_S3_L001_R2_001.fastq.gz |-220630_DAP5C_S3_L002_R1_001.fastq.gz |-220630_DAP5C_S3_L002_R2_001.fastq.gz |-DAP5A/ |-DAP5B/ |-DAP5C/ |-Arabidopsis_thaliana.TAIR10.43.gtf |-BSgenome.Athaliana.TAIR.TAIR9.fasta |-TAIR9/ Running the CellRanger alignment Again, CellRanger processes one reaction at a time, so you must launch an alignment for each sample.\nIn bash, DAP5A:\ncd ./raw_data/DAP5A bsub -n 64 cellranger6 count --id=220630_whole_seed_DAP5A_colcol --transcriptome=TAIR9 --fastqs=../raw_data --sample=220630_DAP5A --expect-cells=10000 --localcores=8 --localmem=64 DAP5B:\ncd ./raw_data/DAP5B bsub -n 64 cellranger6 count --id=220630_whole_seed_DAP5B_colcol --transcriptome=/lab/solexa_gehring/carly/snRNA_seed_dev/cellranger/TAIR9 --fastqs=../raw_data --sample=220630_DAP5B --expect-cells=10000 --localcores=8 --localmem=64 DAP5C:\ncd ./raw_data/DAP5C bsub -n 64 cellranger6 count --id=220630_whole_seed_DAP5C_colcol --transcriptome=/lab/solexa_gehring/carly/snRNA_seed_dev/cellranger/TAIR9 --fastqs=../raw_data --sample=220630_DAP5C --expect-cells=10000 --localcores=8 --localmem=64 Monitoring alignment progress CellRanger provides a very useful link for visualizing the status of your alignment for each sample. To access the link for an alignment after you’ve submitted the cellranger count to the cluster, find the LSF job ID using the bjobs command, in bash:\nbjobs You’ll see the job IDs as 7-digit numbers, for example: 6187243\nGet detailed, instantaneous information about the job by using the bpeek command:\nbpeek 6187243 When you run bpeek on a cellranger alignment, one of the first lines you will see in the output will contain a unique link, for example: http://c1b6:43737?auth=QNPwUNtdj7piPshR2dhGuzTRqy3PQKEA4w5Zp4QlRUQ\nCopy and paste this into your browser to monitor the status of that run\nLocating QC files When the run finishes, you will have the following files in your analysis directory (this is not a comprehensive structure, but contains the paths to the QC and the most important outs):\n./cellranger/ |-raw_data/ |-220630_DAP5A_S1_L001_R1_001.fastq.gz |-220630_DAP5A_S1_L001_R2_001.fastq.gz |-220630_DAP5A_S1_L002_R1_001.fastq.gz |-220630_DAP5A_S1_L002_R2_001.fastq.gz |-220630_DAP5B_S2_L001_R1_001.fastq.gz |-220630_DAP5B_S2_L001_R2_001.fastq.gz |-220630_DAP5B_S2_L002_R1_001.fastq.gz |-220630_DAP5B_S2_L002_R2_001.fastq.gz |-220630_DAP5C_S3_L001_R1_001.fastq.gz |-220630_DAP5C_S3_L001_R2_001.fastq.gz |-220630_DAP5C_S3_L002_R1_001.fastq.gz |-220630_DAP5C_S3_L002_R2_001.fastq.gz |-DAP5A |-220630_whole_seed_DAP5A_colcol |-outs |-web_summary.html |-filtered_feature_bc_matrix |-barcodes.tsv.gz |-features.tsv.gz |-matrix.mtx.gz |-DAP5B |-220630_whole_seed_DAP5B_colcol |-outs |-web_summary.html |-filtered_feature_bc_matrix |-barcodes.tsv.gz |-features.tsv.gz |-matrix.mtx.gz |-DAP5C |-220630_whole_seed_DAP5B_colcol |-outs |-web_summary.html |-filtered_feature_bc_matrix |-barcodes.tsv.gz |-features.tsv.gz |-matrix.mtx.gz Inspect the run QCs in the web_summary.html, and the filtered_feature_bc_matrix directory is the path you will use for loading the sample into programs like Seurat\n🥳️ Happy clustering and plotting! 🥳️\npackage main import ( \"fmt\" \"math/rand\" \"time\" ) type Moo struct { Cow int Sound string Tube chan bool } // A cow will moo until it is being fed func cow(num int, mootube chan Moo) { tube := make(chan bool) for { select { case mootube \u003c- Moo{num, \"moo\", tube}: fmt.Println(\"Cow number\", num, \"mooed through the mootube\") \u003c-tube fmt.Println(\"Cow number\", num, \"is being fed and stops mooing\") mootube \u003c- Moo{num, \"mooh\", nil} fmt.Println(\"Cow number\", num, \"moos one last time out of happyness\") return default: fmt.Println(\"Cow number\", num, \"mooed through the mootube and was ignored\") time.Sleep(time.Duration(rand.Int31n(1000)) * time.Millisecond) } } } // The farmer wants to put food in all the mootubes to stop the mooing func farmer(numcows int, mootube chan Moo, farmertube chan string) { fmt.Println(\"Farmer starts listening to the mootube\") for hungryCows := numcows; hungryCows \u003e 0; { moo := \u003c-mootube if moo.Sound == \"mooh\" { fmt.Println(\"Farmer heard a moo of relief from cow number\", moo.Cow) hungryCows-- } else { fmt.Println(\"Farmer heard a\", moo.Sound, \"from cow number\", moo.Cow) time.Sleep(2e9) fmt.Println(\"Farmer starts feeding cow number\", moo.Cow) moo.Tube \u003c- true } } fmt.Println(\"Farmer doesn't hear a single moo anymore. All done!\") farmertube \u003c- \"yey!\" } // The farm starts out with mooing cows that wants to be fed func runFarm(numcows int) { farmertube := make(chan string) mootube := make(chan Moo) for cownum := 0; cownum \u003c numcows; cownum++ { go cow(cownum, mootube) } go farmer(numcows, mootube, farmertube) farmerSaid := \u003c-farmertube if farmerSaid == \"yey!\" { fmt.Println(\"All cows are happy.\") } } func main() { runFarm(4) fmt.Println(\"done\") } ",
+  "wordCount" : "796",
+  "inLanguage": "en",
+  "datePublished": "2022-07-25T00:00:00Z",
+  "dateModified": "2022-07-25T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Carly Martin"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://cmart-seq.github.io/goodbees.github.io/posts/cellranger_alignment/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "will you raise good bees",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://cmart-seq.github.io/goodbees.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://cmart-seq.github.io/goodbees.github.io" accesskey="h" title="will you raise good bees (Alt + H)">will you raise good bees</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      CellRanger Alignment Example
+    </h1>
+    <div class="post-meta"><span title='2022-07-25 00:00:00 +0000 UTC'>July 25, 2022</span>&nbsp;·&nbsp;Carly Martin
+
+</div>
+  </header> 
+  <div class="post-content"><p>Here, we align the NovaSeq outputs for 30k single nuclei profiles from DAP5 seeds using CellRanger. One 10x reaction can process 10k nuclei max, so the profiles are split across 3 reactions (DAP5A, DAP5B, DAP5C). CellRanger processes each reaction separately.</p>
+<h2 id="organization-and-raw-data-naming">Organization and raw data naming:<a hidden class="anchor" aria-hidden="true" href="#organization-and-raw-data-naming">#</a></h2>
+<p>We begin in the command line with the data copied from GTC storage to your solexa_gehring location, following this file structure:</p>
+<pre tabindex="0"><code>./cellranger/
+    |-raw_data/
+        |-220630_DAP5A_S1_L001_R1_001.fastq.gz
+        |-220630_DAP5A_S1_L001_R2_001.fastq.gz
+        |-220630_DAP5A_S1_L002_R1_001.fastq.gz
+        |-220630_DAP5A_S1_L002_R2_001.fastq.gz
+        |-220630_DAP5B_S2_L001_R1_001.fastq.gz
+        |-220630_DAP5B_S2_L001_R2_001.fastq.gz
+        |-220630_DAP5B_S2_L002_R1_001.fastq.gz
+        |-220630_DAP5B_S2_L002_R2_001.fastq.gz
+        |-220630_DAP5C_S3_L001_R1_001.fastq.gz
+        |-220630_DAP5C_S3_L001_R2_001.fastq.gz
+        |-220630_DAP5C_S3_L002_R1_001.fastq.gz
+        |-220630_DAP5C_S3_L002_R2_001.fastq.gz
+    |-DAP5A/  
+    |-DAP5B/
+    |-DAP5C/
+    |-Arabidopsis_thaliana.TAIR10.43.gtf
+    |-BSgenome.Athaliana.TAIR.TAIR9.fasta
+</code></pre><p>Note that the raw data file names are not the names generated by illumina/GTC. CellRanger requires this naming convention:</p>
+<pre tabindex="0"><code>[SAMPLE NAME]_S[X]_L00[LANE NUMBER]_[READ TYPE]_001.fastq.gz
+</code></pre><p>Link with more info: <a href="https://kb.10xgenomics.com/hc/en-us/articles/115003802691-How-do-I-prepare-Sequence-Read-Archive-SRA-data-from-NCBI-for-Cell-Ranger-">https://kb.10xgenomics.com/hc/en-us/articles/115003802691-How-do-I-prepare-Sequence-Read-Archive-SRA-data-from-NCBI-for-Cell-Ranger-</a></p>
+<p>Example of naming change, while copying to your raw_data folder in bash:</p>
+<pre tabindex="0"><code>#cd to your raw_data folder
+cp /GTC/path/to/FASTQ/L224_1246_S1_L001_R1_001.fastq.gz ./220630_DAP5A_S1_L001_R1_001.fastq.gz 
+</code></pre><h2 id="preparing-a-custom-reference-for-a-thaliana">Preparing a custom reference for A. thaliana:<a hidden class="anchor" aria-hidden="true" href="#preparing-a-custom-reference-for-a-thaliana">#</a></h2>
+<p>CellRanger requires a specialized directory structure for the reference genome and annotation. To construct a custom reference, prepare your .gtf file with cellranger mkgtf. Then, generate the reference file structure with cellranger mkref.</p>
+<p>In tak, call the v6 version of cellranger with cellranger6. The default version of cellranger (version 4) on tak cannot handle custom reference generation with plant genomes.</p>
+<p>In bash, filter:</p>
+<pre tabindex="0"><code>cellranger6 mkgtf Arabidopsis_thaliana.TAIR10.43.gtf Arabidopsis_thaliana.TAIR10.43.filtered.gtf
+</code></pre><p>In bash, make the reference:</p>
+<pre tabindex="0"><code>cellranger6 mkref --genome=TAIR9 --fasta=BSgenome.Athaliana.TAIR.TAIR9.fasta --genes=Arabidopsis_thaliana.TAIR10.43.filtered.gtf
+</code></pre><p>Now, there is a new folder in your analysis directory containing the custom reference compatible with CellRanger:</p>
+<pre tabindex="0"><code>./cellranger/
+    |-raw_data/
+        |-220630_DAP5A_S1_L001_R1_001.fastq.gz
+        |-220630_DAP5A_S1_L001_R2_001.fastq.gz
+        |-220630_DAP5A_S1_L002_R1_001.fastq.gz
+        |-220630_DAP5A_S1_L002_R2_001.fastq.gz
+        |-220630_DAP5B_S2_L001_R1_001.fastq.gz
+        |-220630_DAP5B_S2_L001_R2_001.fastq.gz
+        |-220630_DAP5B_S2_L002_R1_001.fastq.gz
+        |-220630_DAP5B_S2_L002_R2_001.fastq.gz
+        |-220630_DAP5C_S3_L001_R1_001.fastq.gz
+        |-220630_DAP5C_S3_L001_R2_001.fastq.gz
+        |-220630_DAP5C_S3_L002_R1_001.fastq.gz
+        |-220630_DAP5C_S3_L002_R2_001.fastq.gz
+    |-DAP5A/  
+    |-DAP5B/
+    |-DAP5C/
+    |-Arabidopsis_thaliana.TAIR10.43.gtf
+    |-BSgenome.Athaliana.TAIR.TAIR9.fasta
+    |-TAIR9/
+</code></pre><h2 id="running-the-cellranger-alignment">Running the CellRanger alignment<a hidden class="anchor" aria-hidden="true" href="#running-the-cellranger-alignment">#</a></h2>
+<p>Again, CellRanger processes one reaction at a time, so you must launch an alignment for each sample.</p>
+<p>In bash, DAP5A:</p>
+<pre tabindex="0"><code>cd ./raw_data/DAP5A
+
+bsub -n 64 cellranger6 count --id=220630_whole_seed_DAP5A_colcol --transcriptome=TAIR9 --fastqs=../raw_data --sample=220630_DAP5A --expect-cells=10000 --localcores=8 --localmem=64
+</code></pre><p>DAP5B:</p>
+<pre tabindex="0"><code>cd ./raw_data/DAP5B
+
+bsub -n 64 cellranger6 count --id=220630_whole_seed_DAP5B_colcol --transcriptome=/lab/solexa_gehring/carly/snRNA_seed_dev/cellranger/TAIR9 --fastqs=../raw_data --sample=220630_DAP5B --expect-cells=10000 --localcores=8 --localmem=64
+</code></pre><p>DAP5C:</p>
+<pre tabindex="0"><code>cd ./raw_data/DAP5C
+
+bsub -n 64 cellranger6 count --id=220630_whole_seed_DAP5C_colcol --transcriptome=/lab/solexa_gehring/carly/snRNA_seed_dev/cellranger/TAIR9 --fastqs=../raw_data --sample=220630_DAP5C --expect-cells=10000 --localcores=8 --localmem=64
+</code></pre><h2 id="monitoring-alignment-progress">Monitoring alignment progress<a hidden class="anchor" aria-hidden="true" href="#monitoring-alignment-progress">#</a></h2>
+<p>CellRanger provides a very useful link for visualizing the status of your alignment for each sample. To access the link for an alignment after you&rsquo;ve submitted the cellranger count to the cluster, find the LSF job ID using the bjobs command, in bash:</p>
+<pre tabindex="0"><code>bjobs
+</code></pre><p>You&rsquo;ll see the job IDs as 7-digit numbers, for example: 6187243</p>
+<p>Get detailed, instantaneous information about the job by using the bpeek command:</p>
+<pre tabindex="0"><code>bpeek 6187243
+</code></pre><p>When you run bpeek on a cellranger alignment, one of the first lines you will see in the output will contain a unique link, for example: http://c1b6:43737?auth=QNPwUNtdj7piPshR2dhGuzTRqy3PQKEA4w5Zp4QlRUQ</p>
+<p>Copy and paste this into your browser to monitor the status of that run</p>
+<h2 id="locating-qc-files">Locating QC files<a hidden class="anchor" aria-hidden="true" href="#locating-qc-files">#</a></h2>
+<p>When the run finishes, you will have the following files in your analysis directory (this is not a comprehensive structure, but contains the paths to the QC and the most important outs):</p>
+<pre tabindex="0"><code>./cellranger/
+    |-raw_data/
+        |-220630_DAP5A_S1_L001_R1_001.fastq.gz
+        |-220630_DAP5A_S1_L001_R2_001.fastq.gz
+        |-220630_DAP5A_S1_L002_R1_001.fastq.gz
+        |-220630_DAP5A_S1_L002_R2_001.fastq.gz
+        |-220630_DAP5B_S2_L001_R1_001.fastq.gz
+        |-220630_DAP5B_S2_L001_R2_001.fastq.gz
+        |-220630_DAP5B_S2_L002_R1_001.fastq.gz
+        |-220630_DAP5B_S2_L002_R2_001.fastq.gz
+        |-220630_DAP5C_S3_L001_R1_001.fastq.gz
+        |-220630_DAP5C_S3_L001_R2_001.fastq.gz
+        |-220630_DAP5C_S3_L002_R1_001.fastq.gz
+        |-220630_DAP5C_S3_L002_R2_001.fastq.gz
+
+    |-DAP5A
+        |-220630_whole_seed_DAP5A_colcol
+            |-outs
+                |-web_summary.html
+                |-filtered_feature_bc_matrix
+                    |-barcodes.tsv.gz
+                    |-features.tsv.gz
+                    |-matrix.mtx.gz    
+    |-DAP5B
+        |-220630_whole_seed_DAP5B_colcol
+            |-outs
+                |-web_summary.html
+                |-filtered_feature_bc_matrix
+                    |-barcodes.tsv.gz
+                    |-features.tsv.gz
+                    |-matrix.mtx.gz
+    |-DAP5C
+        |-220630_whole_seed_DAP5B_colcol
+            |-outs
+                |-web_summary.html
+                |-filtered_feature_bc_matrix
+                    |-barcodes.tsv.gz
+                    |-features.tsv.gz
+                    |-matrix.mtx.gz
+</code></pre><p>Inspect the run QCs in the web_summary.html, and the filtered_feature_bc_matrix directory is the path you will use for loading the sample into programs like Seurat</p>
+<p>🥳️ Happy clustering and plotting! 🥳️</p>
+<pre tabindex="0"><code>package main
+
+import (
+    &#34;fmt&#34;
+    &#34;math/rand&#34;
+    &#34;time&#34;
+)
+
+type Moo struct {
+    Cow   int
+    Sound string
+    Tube  chan bool
+}
+
+// A cow will moo until it is being fed
+func cow(num int, mootube chan Moo) {
+    tube := make(chan bool)
+    for {
+        select {
+        case mootube &lt;- Moo{num, &#34;moo&#34;, tube}:
+            fmt.Println(&#34;Cow number&#34;, num, &#34;mooed through the mootube&#34;)
+            &lt;-tube
+            fmt.Println(&#34;Cow number&#34;, num, &#34;is being fed and stops mooing&#34;)
+            mootube &lt;- Moo{num, &#34;mooh&#34;, nil}
+            fmt.Println(&#34;Cow number&#34;, num, &#34;moos one last time out of happyness&#34;)
+            return
+        default:
+            fmt.Println(&#34;Cow number&#34;, num, &#34;mooed through the mootube and was ignored&#34;)
+            time.Sleep(time.Duration(rand.Int31n(1000)) * time.Millisecond)
+        }
+    }
+}
+
+// The farmer wants to put food in all the mootubes to stop the mooing
+func farmer(numcows int, mootube chan Moo, farmertube chan string) {
+    fmt.Println(&#34;Farmer starts listening to the mootube&#34;)
+    for hungryCows := numcows; hungryCows &gt; 0; {
+        moo := &lt;-mootube
+        if moo.Sound == &#34;mooh&#34; {
+            fmt.Println(&#34;Farmer heard a moo of relief from cow number&#34;, moo.Cow)
+            hungryCows--
+        } else {
+            fmt.Println(&#34;Farmer heard a&#34;, moo.Sound, &#34;from cow number&#34;, moo.Cow)
+            time.Sleep(2e9)
+            fmt.Println(&#34;Farmer starts feeding cow number&#34;, moo.Cow)
+            moo.Tube &lt;- true
+        }
+    }
+    fmt.Println(&#34;Farmer doesn&#39;t hear a single moo anymore. All done!&#34;)
+    farmertube &lt;- &#34;yey!&#34;
+}
+
+// The farm starts out with mooing cows that wants to be fed
+func runFarm(numcows int) {
+    farmertube := make(chan string)
+    mootube := make(chan Moo)
+    for cownum := 0; cownum &lt; numcows; cownum++ {
+        go cow(cownum, mootube)
+    }
+    go farmer(numcows, mootube, farmertube)
+    farmerSaid := &lt;-farmertube
+    if farmerSaid == &#34;yey!&#34; {
+        fmt.Println(&#34;All cows are happy.&#34;)
+    }
+}
+
+func main() {
+    runFarm(4)
+    fmt.Println(&#34;done&#34;)
+}
+</code></pre>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://cmart-seq.github.io/goodbees.github.io/tags/tak/">tak</a></li>
+      <li><a href="https://cmart-seq.github.io/goodbees.github.io/tags/10x/">10x</a></li>
+      <li><a href="https://cmart-seq.github.io/goodbees.github.io/tags/alignment/">alignment</a></li>
+      <li><a href="https://cmart-seq.github.io/goodbees.github.io/tags/cellranger/">cellranger</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://cmart-seq.github.io/goodbees.github.io">will you raise good bees</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

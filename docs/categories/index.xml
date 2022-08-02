@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Categories on will you raise good bees</title>
     <link>https://cmart-seq.github.io/goodbees.github.io/categories/</link>
@@ -7,5 +7,41 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 29 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://cmart-seq.github.io/goodbees.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gene plotters</title>
+      <link>https://cmart-seq.github.io/goodbees.github.io/categories/gene-plotters/</link>
+      <pubDate>Fri, 29 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmart-seq.github.io/goodbees.github.io/categories/gene-plotters/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Seed Biology</title>
+      <link>https://cmart-seq.github.io/goodbees.github.io/categories/seed-biology/</link>
+      <pubDate>Fri, 29 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmart-seq.github.io/goodbees.github.io/categories/seed-biology/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Single-cell-genomics</title>
+      <link>https://cmart-seq.github.io/goodbees.github.io/categories/single-cell-genomics/</link>
+      <pubDate>Fri, 29 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmart-seq.github.io/goodbees.github.io/categories/single-cell-genomics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CellRanger</title>
+      <link>https://cmart-seq.github.io/goodbees.github.io/categories/cellranger/</link>
+      <pubDate>Mon, 25 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmart-seq.github.io/goodbees.github.io/categories/cellranger/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
