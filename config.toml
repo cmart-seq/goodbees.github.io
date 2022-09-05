@@ -54,7 +54,7 @@ publishDir              ="docs"
     languageMenu        = false
 
   [params.intro]
-    header                = "will you raise good bees?"
+    header                = "will you raise </br>good bees?</br>"
     paragraph             = "A biology blog."
     rssIntro              = false
     socialIntro           = false
@@ -66,6 +66,7 @@ publishDir              ="docs"
       shape               = "inset"
       width               = "1000"
       alt                 = "test"
+      url               = "posts"
 
   [params.sidebar]
     about               = "\U0001F56F Bioinformatics \U0001F3F5 Seeds \U0001F9D1\U0000200D\U0001F33E  Genomes \U0001F9EC Aesthetics \U0001F3A0 Climate \U00002623 Ritual \U0001F56F"
@@ -100,24 +101,31 @@ publishDir              ="docs"
 [menu]
 
   [[menu.main]]
-    name              = "Blog"
-    identifier        = "blog"
+    name              = "Home"
+    identifier        = "home"
     url               = ""
+    pre               = "<i class='fa fa-home'></i>"
+    weight            = 1
+
+  [[menu.main]]
+    name              = "Blog"
+    identifier        = ""
+    url               = "posts"
     pre               = "<i class='far fa-newspaper'></i>"
-    weight            = 3
+    weight            = 2
 
   [[menu.main]]
     name              = "Categories"
     identifier        = "categories"
-    url               = "categories"
+    url               = "/categories/"
     pre               = "<i class='fas fa-sitemap'></i>"
-    weight            = 5
+    weight            = 3
 
   [[menu.main]]
     name              = "About"
     identifier        = "about"
-    url               = "about"
+    url               = "/about/"
     pre               = "<i class='far fa-id-card'></i>"
-    weight            = 2
+    weight            = 4
 
 
