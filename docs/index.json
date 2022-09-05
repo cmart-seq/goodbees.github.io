@@ -1,0 +1,13 @@
+[{
+    "title": "About",
+    "date": "",
+    "description": "Welcome!",
+    "body": "I\u0026rsquo;m Carly Martin. I am a biologist and this is my blog for sharing analyses that inspire me but don\u0026rsquo;t neatly fit into my PhD thesis topic.\nI\u0026rsquo;m particularly interested in analyzing trends within my field (plant \u0026ldquo;-omics\u0026rdquo;), evaluating the effects of these trends on the wider world, and dissecting naturally beautiful things, literally and analytically.\nMy scientific roots are in neuroscience and genomics tool development, but I have focused on plant biology since starting my graduate work at MIT.\nI wish to share my \u0026ldquo;orchid-tinted glasses\u0026rdquo; with you, or the biologist\u0026rsquo;s perspective: a gift for appreciating the tenderness, ferocity, and brilliance of the natural world that represents billions of years of biochemical discourse.\nemail: camart = mit + edu (google scholar)[https://scholar.google.com/citations?user=5DolZmgAAAAJ\u0026amp;hl=en] (twitter) ",
+    "ref": "/goodbees.github.io/about/"
+  },{
+    "title": "Smartseq2 Seed Nuclei Gene Plotter",
+    "date": "",
+    "description": "",
+    "body": "Here is an R shiny app for checking the expression patterns of Arabidopsis genes on seed nuclei from Picard et al 2021\nPlease use TAIR identifiers for gene plotting only.\n",
+    "ref": "/goodbees.github.io/posts/endo_smrt_plotter/"
+  }]

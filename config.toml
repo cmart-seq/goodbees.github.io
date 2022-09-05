@@ -1,21 +1,123 @@
-baseURL = 'https://cmart-seq.github.io/goodbees.github.io'
-languageCode = 'en-us'
-title = 'will you raise good bees'
-theme = 'PaperMod'
-publishDir = "docs"
-pygmentsUseClasses = false
-pygmentsCodefences = true
-
-[markup.highlight]
-codeFences = true
-guessSyntax = false
-hl_Lines = ""
-lineNoStart = 1
-lineNos = false
-lineNumbersInTable = true
-noClasses = true
-tabWidth = 2
-style = "dracula"
+# For a description of these parameters, please visit the theme wiki.
+# https://github.com/pacollins/hugo-future-imperfect-slim/wiki/config.toml
+baseurl                 = "https://cmart-seq.github.io/goodbees.github.io/"
+DefaultContentLanguage  = "en"
+title                   = "will you raise good bees?"
+theme                   = "hugo-future-imperfect-slim"
+paginate                = 3
+disqusShortname         = ""
+googleAnalytics         = ""
+pluralizeListTitles     = false
+publishDir              ="docs"
 
 [markup.goldmark.renderer]
-unsafe = true
+  unsafe                = true
+
+[module]
+  [module.hugoVersion]
+  extended              = true
+  min                   = "0.62.0"
+
+[outputs]
+  home                  = ["html", "json", "rss"]
+
+[params]
+  enableCDN             = false
+  cssFiles              = ["default"]
+  jsFiles               = ["default"]
+  highlightjs           = true
+  highlightjsTheme      = ""
+  highlightjsLang       = []
+  viewMorePostsLink     = "blog"
+  readingTime           = false
+  imageStretch          = "horizontal"
+  removeBlur            = false
+  hideEmptyStats        = false
+  toc                   = true
+  tocWords              = 400
+  socialShare           = []
+
+  [params.meta]
+    description         = "A theme by HTML5 UP, ported by Julio Pescador. Slimmed and enhanced by Patrick Collins. Multilingual by StatnMap. Powered by Hugo."
+    author              = "HTML5UP and Hugo"
+    favicon             = true
+    svg                 = false
+    faviconVersion      = "2"
+    msColor             = "#ffffff"
+    iOSColor            = "#ffffff"
+
+  [params.header]
+    navbarTitle         = ""
+    dynamicTitles       = true
+    searchMenu          = true
+    shareMenu           = false
+    languageMenu        = false
+
+  [params.intro]
+    header                = "will you raise good bees?"
+    paragraph             = "A biology blog."
+    rssIntro              = false
+    socialIntro           = false
+    hideWhenSingleColumn  = false
+    alwaysOnHomepage      = false
+
+    [params.intro.pic]
+      src                 = "img/main/flower_to_umap_plot.gif"
+      shape               = "inset"
+      width               = "1000"
+      alt                 = "test"
+
+  [params.sidebar]
+    about               = "\U0001F56F Bioinformatics \U0001F3F5 Seeds \U0001F9D1\U0000200D\U0001F33E  Genomes \U0001F9EC Aesthetics \U0001F3A0 Climate \U00002623 Ritual \U0001F56F"
+    postAmount          = 5
+    categories          = true
+    categoriesByCount   = true
+
+  [params.footer]
+    rssFooter           = false
+    socialFooter        = false
+
+  [params.utterances]
+    enabled             = false
+    repo                = ""
+    issueTerm           = "pathname"
+    issueNumber         = ""
+    label               = ""
+    theme               = "github-light"
+
+  [params.staticman]
+    enabled             = false
+    api                 = ""  # No Trailing Slash
+    gitProvider         = ""
+    username            = ""
+    repo                = ""
+    branch              = ""
+
+    [params.staticman.recaptcha]
+      siteKey           = ""
+      encryptedKey      = ""
+
+[menu]
+
+  [[menu.main]]
+    name              = "Blog"
+    identifier        = "blog"
+    url               = ""
+    pre               = "<i class='far fa-newspaper'></i>"
+    weight            = 3
+
+  [[menu.main]]
+    name              = "Categories"
+    identifier        = "categories"
+    url               = "categories"
+    pre               = "<i class='fas fa-sitemap'></i>"
+    weight            = 5
+
+  [[menu.main]]
+    name              = "About"
+    identifier        = "about"
+    url               = "about"
+    pre               = "<i class='far fa-id-card'></i>"
+    weight            = 2
+
+

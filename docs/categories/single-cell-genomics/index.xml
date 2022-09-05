@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Single-cell-genomics on will you raise good bees</title>
+    <title>Single-cell-genomics on will you raise good bees?</title>
     <link>https://cmart-seq.github.io/goodbees.github.io/categories/single-cell-genomics/</link>
-    <description>Recent content in Single-cell-genomics on will you raise good bees</description>
+    <description>Recent content in Single-cell-genomics on will you raise good bees?</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
     <lastBuildDate>Fri, 29 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://cmart-seq.github.io/goodbees.github.io/categories/single-cell-genomics/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Smartseq2 Seed Nuclei Gene Plotter</title>
@@ -15,17 +14,6 @@
       <guid>https://cmart-seq.github.io/goodbees.github.io/posts/endo_smrt_plotter/</guid>
       <description>Here is an R shiny app for checking the expression patterns of Arabidopsis genes on seed nuclei from Picard et al 2021
 Please use TAIR identifiers for gene plotting only.</description>
-    </item>
-    
-    <item>
-      <title>CellRanger Alignment Example</title>
-      <link>https://cmart-seq.github.io/goodbees.github.io/posts/cellranger_alignment/</link>
-      <pubDate>Mon, 25 Jul 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://cmart-seq.github.io/goodbees.github.io/posts/cellranger_alignment/</guid>
-      <description>Here, we align the NovaSeq outputs for 30k single nuclei profiles from DAP5 seeds using CellRanger. One 10x reaction can process 10k nuclei max, so the profiles are split across 3 reactions (DAP5A, DAP5B, DAP5C). CellRanger processes each reaction separately.
-Organization and raw data naming: We begin in the command line with the data copied from GTC storage to your solexa_gehring location, following this file structure:
-./cellranger/ |-raw_data/ |-220630_DAP5A_S1_L001_R1_001.fastq.gz |-220630_DAP5A_S1_L001_R2_001.fastq.gz |-220630_DAP5A_S1_L002_R1_001.</description>
     </item>
     
   </channel>

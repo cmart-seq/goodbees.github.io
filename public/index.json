@@ -1,0 +1,7 @@
+[{
+    "title": "Smartseq2 Seed Nuclei Gene Plotter",
+    "date": "",
+    "description": "",
+    "body": "Here is an R shiny app for checking the expression patterns of Arabidopsis genes on seed nuclei from Picard et al 2021\nPlease use TAIR identifiers for gene plotting only.\n",
+    "ref": "/goodbees.github.io/posts/endo_smrt_plotter/"
+  }]
